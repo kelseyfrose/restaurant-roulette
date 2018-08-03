@@ -4,7 +4,7 @@ const axios = require('axios');
 const CLIENT_SECRET = '';
 const CLIENT_ID = '';
 
-exports.getCoffeeShops = async function(query) {
+exports.getVenues = async function(query) {
     try {
         const response = await axios.get('https://api.foursquare.com/v2/venues/search', {
             params: {

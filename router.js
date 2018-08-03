@@ -1,15 +1,23 @@
 const express = require('express');
-const { getCoffeeShops }  = require('./venueApi');
+const { getVenues }  = require('./venueApi');
 const { getRandomVenue } = require('./venuePicker');
 
 const router = express.Router();
 
-router.get('/:query', async(req, res) => {
-    const query = req.params.query;
+router.get('/', (req, res) => {
+    res.render('index', { });
+});
 
-    const venuesResponse = await getCoffeeShops(query);
+router.get('/search', async(req, res) => {
+    const query = req.query.query;
+    const venuesResponse = await getVenues(query);
     const chosenVenue = getRandomVenue(venuesResponse);
-    res.send(chosenVenue);
+    
+    res.render('index', { 
+        query,
+        venueName: chosenVenue.name,
+        venueAddress: chosenVenue.address
+    });
 });
 
 module.exports = router;
